@@ -7,35 +7,7 @@
   <title>StakeBräu</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<script>
-async function loadValidatorStats() {
-  try {
-    const response = await fetch('https://api.stakewiz.com/validator/FKU3YWq3AUuN2mJVR2pJgbsVQHdGeaK1Yj1iMBhJugd1');
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.json();
 
-    console.log(data);
-
-    setTimeout(() => {
-      document.getElementById('apr').innerText = data.apy_estimate ? data.apy_estimate.toFixed(2) + '%' : '—';
-      document.getElementById('uptime').innerText = data.uptime ? data.uptime.toFixed(1) + '%' : '—';
-      document.getElementById('delegators').innerText = data.activated_stake ? Math.round(data.activated_stake).toLocaleString() : '—';
-      document.getElementById('epochs').innerText = data.epoch_credits ?? '—';
-    }, 500);
-
-  } catch (error) {
-    console.error('Error loading validator stats:', error);
-    document.getElementById('apr').innerText = '—';
-    document.getElementById('uptime').innerText = '—';
-    document.getElementById('delegators').innerText = '—';
-    document.getElementById('epochs').innerText = '—';
-  }
-}
-
-loadValidatorStats();
-</script>
 <body>
   <header>
     <img class="logo-img" src="logo.png" alt="StakeBräu logo"/>
@@ -71,26 +43,26 @@ loadValidatorStats();
   </section>
 
   <section>
-  <h2>Validator Stats</h2>
-  <div class="stats">
-    <div class="stat">
-      <strong id="apr">Loading...</strong>
-      <p>Current APR</p>
+    <h2>Validator Stats</h2>
+    <div class="stats">
+      <div class="stat">
+        <strong id="apr">Loading...</strong>
+        <p>Current APR</p>
+      </div>
+      <div class="stat">
+        <strong id="uptime">Loading...</strong>
+        <p>Uptime</p>
+      </div>
+      <div class="stat">
+        <strong id="delegators">Loading...</strong>
+        <p>Delegators</p>
+      </div>
+      <div class="stat">
+        <strong id="epochs">Loading...</strong>
+        <p>Epochs</p>
+      </div>
     </div>
-    <div class="stat">
-      <strong id="uptime">Loading...</strong>
-      <p>Uptime</p>
-    </div>
-    <div class="stat">
-      <strong id="delegators">Loading...</strong>
-      <p>Delegators</p>
-    </div>
-    <div class="stat">
-      <strong id="epochs">Loading...</strong>
-      <p>Epochs</p>
-    </div>
-  </div>
-</section>
+  </section>
 
   <section>
     <h2>About Me</h2>
@@ -113,5 +85,36 @@ loadValidatorStats();
     <p><em>Stake responsibly.</em></p>
     <p>🍻 Powered by Bräu</p>
   </footer>
+
+  <script>
+    async function loadValidatorStats() {
+      try {
+        const response = await fetch('https://api.stakewiz.com/validator/FKU3YWq3AUuN2mJVR2pJgbsVQHdGeaK1Yj1iMBhJugd1');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+
+        setTimeout(() => {
+          document.getElementById('apr').innerText = data.apy_estimate ? data.apy_estimate.toFixed(2) + '%' : '—';
+          document.getElementById('uptime').innerText = data.uptime ? data.uptime.toFixed(1) + '%' : '—';
+          document.getElementById('delegators').innerText = data.activated_stake ? Math.round(data.activated_stake).toLocaleString() : '—';
+          document.getElementById('epochs').innerText = data.epoch_credits ?? '—';
+        }, 500);
+        
+      } catch (error) {
+        console.error('Error loading validator stats:', error);
+        document.getElementById('apr').innerText = '—';
+        document.getElementById('uptime').innerText = '—';
+        document.getElementById('delegators').innerText = '—';
+        document.getElementById('epochs').innerText = '—';
+      }
+    }
+
+    loadValidatorStats();
+  </script>
+
 </body>
 </html>
+
