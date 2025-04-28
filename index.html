@@ -16,10 +16,8 @@ async function loadValidatorStats() {
     }
     const data = await response.json();
 
-    // Вивід даних у консоль для перевірки
     console.log(data);
 
-    // Очікування перед оновленням DOM
     setTimeout(() => {
       document.getElementById('apr').innerText = data.apy_estimate ? data.apy_estimate.toFixed(2) + '%' : '—';
       document.getElementById('uptime').innerText = data.uptime ? data.uptime.toFixed(1) + '%' : '—';
@@ -31,10 +29,13 @@ async function loadValidatorStats() {
     console.error('Error loading validator stats:', error);
     document.getElementById('apr').innerText = '—';
     document.getElementById('uptime').innerText = '—';
-    document.getElementById('delegators
+    document.getElementById('delegators').innerText = '—';
+    document.getElementById('epochs').innerText = '—';
+  }
+}
 
-
-
+loadValidatorStats();
+</script>
 <body>
   <header>
     <img class="logo-img" src="logo.png" alt="StakeBräu logo"/>
