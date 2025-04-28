@@ -10,15 +10,16 @@
 <script>
 async function loadValidatorStats() {
   try {
-    const response = await fetch('https://api.validators.app/v1/validators/FKU3YWq3AUuN2mJVR2pJgbsVQHdGeaK1Yj1iMBhJugd1');
+    const response = await fetch('https://api.solanacompass.com/v1/validators/FKU3YWq3AUuN2mJVR2pJgbsVQHdGeaK1Yj1iMBhJugd1');
     const data = await response.json();
     
-  
+    console.log(data);
+
     setTimeout(() => {
       document.getElementById('apr').innerText = (data.apr * 100).toFixed(2) + '%';
-      document.getElementById('uptime').innerText = (data.uptime * 100).toFixed(1) + '%';
-      document.getElementById('delegators').innerText = data.delegators ? data.delegators : '—';
-      document.getElementById('epochs').innerText = data.epochs ? data.epochs : '—';
+      document.getElementById('uptime').innerText = (data.uptime_percentage).toFixed(1) + '%';
+      document.getElementById('delegators').innerText = data.active_stake_delegators_count ?? '—';
+      document.getElementById('epochs').innerText = data.epoch_credits ?? '—';
     }, 500);
 
   } catch (error) {
@@ -33,6 +34,7 @@ async function loadValidatorStats() {
 
 loadValidatorStats();
 </script>
+
 
 <body>
   <header>
