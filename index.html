@@ -10,7 +10,7 @@
 <script>
 async function loadValidatorStats() {
   try {
-    const response = await fetch('https://api.solanacompass.com/v1/validators/FKU3YWq3AUuN2mJVR2pJgbsVQHdGeaK1Yj1iMBhJugd1');
+    const response = await fetch('https://validator-proxy.onrender.com/validator/FKU3YWq3AUuN2mJVR2pJgbsVQHdGeaK1Yj1iMBhJugd1');
     const data = await response.json();
     
     console.log(data);
